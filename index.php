@@ -28,7 +28,8 @@ if ($use_recaptcha) {
     require_once("lib/recaptchalib.php");
 }
 require_once("lib/detectbrowserlanguage.php");
-
+$lib_path = dirname(__FILE__)."/lib";
+set_include_path(get_include_path() . PATH_SEPARATOR . $lib_path);
 #==============================================================================
 # Language
 #==============================================================================

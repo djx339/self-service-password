@@ -242,7 +242,7 @@ if ($pwd_show_policy_pos === 'below') {
     # Notify password change
     if ($mail and $notify_on_change) {
         $data = array( "login" => $login, "mail" => $mail, "password" => $newpassword);
-        if ( !send_mail($mail, $mail_from, $messages["changesubject"], $messages["changemessage"], $data) ) {
+        if ( !send_mail($mail, $mail_from, $messages["changesubject"], $messages["changemessage"], $data, $smtp_params) ) {
             error_log("Error while sending change email to $mail (user $login)");
         }
     }

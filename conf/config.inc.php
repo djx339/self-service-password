@@ -123,6 +123,18 @@ $crypt_tokens = true;
 $token_lifetime = "3600";
 
 ## Mail
+# Mail settings
+$smtp_params = array(
+    "host" => "smtp.example.com",
+    "port" => "25",
+    # Whether or not to use SMTP authentication. Default is FALSE.
+    # "auth" => true,
+    # If the auth value is true, username and password is required.
+    # "username" => "username",
+    # "password" => "password",
+    # The SMTP connection timeout. Default is NULL (no timeout).
+    # "timeout" => NULL,
+);
 # LDAP mail attribute
 $mail_attribute = "mail";
 # Who the email should come from

@@ -176,7 +176,7 @@ if ( $result === "" ) {
     $data = array( "login" => $login, "mail" => $mail, "url" => $reset_url ) ;
 
     # Send message
-    if ( send_mail($mail, $mail_from, $messages["resetsubject"], $messages["resetmessage"], $data) ) {
+    if ( send_mail($mail, $mail_from, $messages["resetsubject"], $messages["resetmessage"], $data, $smtp_params) ) {
         $result = "tokensent";
     } else {
         $result = "tokennotsent";

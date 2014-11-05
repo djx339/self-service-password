@@ -19,6 +19,8 @@
 #
 #==============================================================================
 
+require_once "Mail.php";
+
 # Create SSHA password
 function make_ssha_password($password) {
     mt_srand((double)microtime()*1000000);
@@ -367,21 +369,29 @@ function decrypt($data, $keyphrase) {
     return trim($decrypted);
 }
 
-/* @function boolean send_mail(string $mail, string $mail_from, string $subject, string $body, array $data)
+/* @function boolean send_mail(string $mail, string $mail_from, string $subject, string $body, array $data, array $smtp_params)
  * Send a mail, replace strings in body
  * @param mail Destination
  * @param mail_from Sender
  * @param subject Subject
  * @param body Body
  * @param data Data for string replacement
+ * @param smtp_params Params for smtp settings
  * @return result
  */
-function send_mail($mail, $mail_from, $subject, $body, $data) {
+function send_mail($mail, $mail_from, $subject, $body, $data, $smtp_params) {
 
     $result = false;
 
     if (!$mail) {
         error_log("send_mail: no mail given, exiting...");
+        return $result;
+    }
+
+    $mail_object =& Mail::factory('smtp', $smtp_params);
+
+    if(PEAR::isError($mail_object)) {
+        error_log("send_mail: smtp error -- ".$mail_object->getMessage());
         return $result;
     }
 
@@ -398,13 +408,26 @@ function send_mail($mail, $mail_from, $subject, $body, $data) {
     $subject = mb_encode_mimeheader($subject);
 
     /* Set encoding for the body */
-    $header = "MIME-Version: 1.0\r\nContent-type: text/plain; charset=UTF-8\r\n";
+    // $header = "MIME-Version: 1.0\r\nContent-type: text/plain; charset=UTF-8\r\n";
+    $headers = array(
+        "To" => $mail,
+        "Subject" => $subject,
+        "MIME-Version" => "1.0",
+        "Content-type" => "text/plain",
+        "charset" => "UTF-8",
+    );
 
     /* Send the mail */
     if ($mail_from) {
-        $result = mail($mail, $subject, $body, $header."From: $mail_from\r\n","-f$mail_from");
+        $headers['From'] = $mail_from;
+    }
+
+    $send_result = $mail_object->send($mail, $headers, $body);
+
+    if(PEAR::isError($send_result)){
+        error_log("send_mail: send mail error -- ".$send_result->getMessage());
     } else {
-        $result = mail($mail, $subject, $body, $header);
+        $result = true;
     }
 
     return $result;
