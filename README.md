@@ -5,6 +5,9 @@ Self Service Password is a PHP application that allows users to change their pas
 
 This project forked https://ltb-project.org/svn/self-service-password/trunk/
 
+Changes:
+* Replaced the default sendmail with PEAR::MAIL()
+
 Documents
 =========
 
