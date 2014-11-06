@@ -154,18 +154,10 @@ if ( $result === "" ) {
     # Build reset by token URL
     $method = "http";
     if ( !empty($_SERVER['HTTPS']) ) { $method .= "s"; }
-    $server_name = $_SERVER['SERVER_NAME'];
-    $server_port = $_SERVER['SERVER_PORT'];
+    $http_host = $_SERVER['HTTP_HOST'];
     $script_name = $_SERVER['SCRIPT_NAME'];
 
-    # Force server port if non standard port
-    if (   ( $method === "http"  and $server_port != "80"  )
-        or ( $method === "https" and $server_port != "443" )
-    ) {
-        $server_name .= ":".$server_port; 
-    }
-
-    $reset_url = $method."://".$server_name.$script_name."?action=resetbytoken&token=$token";
+    $reset_url = $method."://".$http_host.$script_name."?action=resetbytoken&token=$token";
     
     if ( !empty($reset_request_log) ) {
         error_log("Send reset URL $reset_url \n\n", 3, $reset_request_log);

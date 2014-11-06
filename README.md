@@ -7,6 +7,7 @@ This project forked https://ltb-project.org/svn/self-service-password/trunk/
 
 Changes:
 * Replaced the default sendmail with PEAR::MAIL()
+* Use HTTP_HOST replaced SERVER_NAME when generate passreset url
 
 Documents
 =========
