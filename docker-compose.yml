@@ -8,3 +8,25 @@ app:
         - LDAP_LOGIN_ATTRIBUTE=
         - LDAP_FULLNAME_ATTRIBUTE=
         - LDAP_FILTER=
+
+        - AD_MODE=
+        - AD_FORCE_UNLOCK=
+        - AD_FORCE_PWD_CHANGE=
+        - SAMBA_MODE=
+
+        - PWD_HASH=SSHA
+        - PWD_MIN_LENGTH=8
+        - PWD_MAX_LENGTH=32
+        - PWD_MIN_LOWER=1
+        - PWD_MIN_UPPER=1
+        - PWD_MIN_DIGIT=1
+        - PWD_MIN_SPECIAL=1
+        - PWD_NO_REUSE=true
+        - PWD_COMPLEXITY=3
+        - PWD_SHOW_POLICY=never
+
+        - SMTP_HOST=smtp.example.com
+        - SMTP_PORT=25
+        - SMTP_AUTH=false
+        - SMTP_USERNAME=
+        - SMTP_PASSWORD=
