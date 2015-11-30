@@ -1,5 +1,7 @@
 app:
     build: .
+    ports:
+        - 80
     environment:
         - LDAP_URL=ldap://ldap:389
         - LDAP_BINDDN=cn=admin,dc=example,dc=com
